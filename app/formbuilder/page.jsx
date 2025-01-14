@@ -11,11 +11,23 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import saveForm from "@/lib/saveForm";
+import { useToast } from "@/hooks/use-toast";
 
 export default function FormBuilderPage() {
   const [questions, setQuestions] = useState([]);
+  const [formTitle, setFormTitle] = useState("");
+  const { toast } = useToast();
 
   const addQuestion = () => {
+    if (!formTitle.trim() || formTitle === "") {
+      console.log("il faut donner un titre trou duc");
+      toast({
+        description: "Il faut donner un titre à votre formulaire",
+      });
+      return;
+    }
+
     const newQuestion = {
       id: Date.now(),
       label: "",
@@ -52,8 +64,28 @@ export default function FormBuilderPage() {
     setQuestions(updatedQuestions);
   };
 
-  const saveForm = () => {
-    console.log("questions :", questions);
+  const updateQuestions = (index, value) => {
+    const updatedQuestions = [...questions];
+    updatedQuestions[index].label = value;
+    setQuestions(updatedQuestions);
+  };
+
+  const handleSaveForm = async () => {
+    const sanitizedQuestions = questions.map((question) => ({
+      ...question,
+      label: question.label.trim() || "Question sans titre",
+      options: (question.options || []).filter(
+        (option) => option.trim() !== "",
+      ),
+    }));
+
+    try {
+      await saveForm(formTitle, sanitizedQuestions);
+      console.log("Formulaire créé avec succès !");
+    } catch (error) {
+      console.error("Erreur lors de la création du formulaire :", error);
+      console.log("Une erreur est survenue lors de la création du formulaire.");
+    }
   };
 
   return (
@@ -62,7 +94,7 @@ export default function FormBuilderPage() {
 
       {questions.length < 1 && (
         <div className="flex flex-col items-center justify-center  min-h-screen overflow-hidden">
-          <h1 className="mb-8 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl">
+          <h1 className="mb-8 text-4xl font-extrabold text-center leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl">
             Commencer par ajouter votre première question
           </h1>
           <p className="mb-16 text-lg font-normal text-gray-500 lg:text-xl sm:px-16 xl:px-48 text-center">
@@ -70,14 +102,20 @@ export default function FormBuilderPage() {
             ensuite proposer des réponses libres ou bien laisser libre cours à
             l'imagination de vos répondants.
           </p>
+          <Input
+            value={formTitle}
+            type="text"
+            placeholder="Donnez un titre à votre formulaire"
+            onChange={(e) => setFormTitle(e.target.value)}
+          />
+
           <Button size="lg" onClick={addQuestion}>
-            Ajouter une question
+            Commencer!
           </Button>
         </div>
       )}
-
       {questions.length > 0 && (
-        <div className="flex min-h-[calc(100vh-64px)]  items-center justify-center">
+        <div className="flex min-h-[calc(100vh-48px)] mt-4  items-center justify-center">
           <div className="grid w-full max-w-2xl items-center gap-12">
             {questions.map((question, index) => (
               <div key={question.id}>
@@ -87,9 +125,7 @@ export default function FormBuilderPage() {
                   placeholder={`Question ${index + 1}`}
                   value={question.label}
                   onChange={(e) => {
-                    const updatedQuestions = [...questions];
-                    updatedQuestions[index].label = e.target.value;
-                    setQuestions(updatedQuestions);
+                    updateQuestions(index, e.target.value);
                   }}
                 />
 
@@ -100,7 +136,7 @@ export default function FormBuilderPage() {
                     <SelectValue placeholder="Réponse libre" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="TEXT">Texte</SelectItem>
+                    <SelectItem value="TEXT">Réponse libre</SelectItem>
                     <SelectItem value="MULTIPLE_CHOICE">
                       Choix multiple
                     </SelectItem>
@@ -153,7 +189,7 @@ export default function FormBuilderPage() {
               )}
 
               {questions.length > 0 && (
-                <Button onClick={saveForm}>Créer le sondage</Button>
+                <Button onClick={handleSaveForm}>Créer le sondage</Button>
               )}
             </div>
           </div>
