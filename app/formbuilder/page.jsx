@@ -21,9 +21,8 @@ export default function FormBuilderPage() {
 
   const addQuestion = () => {
     if (!formTitle.trim() || formTitle === "") {
-      console.log("il faut donner un titre trou duc");
       toast({
-        description: "Il faut donner un titre à votre formulaire",
+        description: " ⚠️ Il faut donner un titre à votre formulaire",
       });
       return;
     }
@@ -71,9 +70,33 @@ export default function FormBuilderPage() {
   };
 
   const handleSaveForm = async () => {
+    const hasEmptyQuestion = questions.some(
+      (question) => !question.label.trim(),
+    );
+    if (hasEmptyQuestion) {
+      toast({
+        description:
+          "⚠️ Veuillez compléter toutes les questions avant de sauvegarder le formulaire.",
+      });
+      return;
+    }
+
+    const hasEmptyOption = questions.some(
+      (question) =>
+        question.type === "MULTIPLE_CHOICE" &&
+        question.options.some((option) => !option.trim()),
+    );
+    if (hasEmptyOption) {
+      toast({
+        description:
+          "⚠️ Veuillez compléter toutes les options pour les questions à choix multiple.",
+      });
+      return;
+    }
+
     const sanitizedQuestions = questions.map((question) => ({
       ...question,
-      label: question.label.trim() || "Question sans titre",
+      label: question.label.trim() || "",
       options: (question.options || []).filter(
         (option) => option.trim() !== "",
       ),
@@ -81,10 +104,13 @@ export default function FormBuilderPage() {
 
     try {
       await saveForm(formTitle, sanitizedQuestions);
-      console.log("Formulaire créé avec succès !");
+      toast({ description: " ✅ Formulaire créé avec succès !" });
     } catch (error) {
+      toast({
+        description:
+          "Une erreur est survenue lors de la création du formulaire.",
+      });
       console.error("Erreur lors de la création du formulaire :", error);
-      console.log("Une erreur est survenue lors de la création du formulaire.");
     }
   };
 
