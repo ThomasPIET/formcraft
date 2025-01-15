@@ -119,16 +119,16 @@ export default function FormBuilderPage() {
       <Header />
 
       {questions.length < 1 && (
-        <div className="flex flex-col items-center justify-center  min-h-screen overflow-hidden">
+        <div className="flex flex-col items-center justify-center  min-h-screen overflow-hiddender  ">
           <h1 className="mb-8 text-4xl font-extrabold text-center leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl">
-            Commencer par ajouter votre première question
+            Bienvenue sur la page de création de formulaire
           </h1>
-          <p className="mb-16 text-lg font-normal text-gray-500 lg:text-xl sm:px-16 xl:px-48 text-center">
-            Créez votre formulaire en ajoutant des questions, vous pouvez
-            ensuite proposer des réponses libres ou bien laisser libre cours à
-            l'imagination de vos répondants.
+          <p className="mb-10 text-lg font-normal text-gray-500 lg:text-xl sm:px-16 xl:px-48 text-center">
+            Commencez par ajouter un titre à votre formulaire, puis ajoutez des
+            questions.
           </p>
           <Input
+            className="mb-8 max-w-lg"
             value={formTitle}
             type="text"
             placeholder="Donnez un titre à votre formulaire"
@@ -136,7 +136,7 @@ export default function FormBuilderPage() {
           />
 
           <Button size="lg" onClick={addQuestion}>
-            Commencer!
+            Commencer
           </Button>
         </div>
       )}

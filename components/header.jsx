@@ -8,9 +8,16 @@ export default function Header() {
         <a href="/" className="text-2xl font-bold">
           FormCraft
         </a>
-        <Button variant="outline" asChild>
-          <Link href="/formbuilder">Create Form</Link>
-        </Button>
+
+        <div className="flex gap-4">
+          <Button variant="ghost" asChild>
+            <Link href="/formbuilder">Créer un formulaire</Link>
+          </Button>
+
+          <Button variant="ghost" asChild>
+            <Link href="/myform">Voir mes formulaires</Link>
+          </Button>
+        </div>
       </div>
     </header>
   );
