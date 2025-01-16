@@ -13,8 +13,8 @@ export default function Page() {
         <li>Lier un user a un form</li>
         <li>Faire en sorte qu'il puisse modifier ses forms</li>
         <li>
-          Faire en sorte qu'on soit rediriger quand ou de changer de page quand
-          on a cliquer sur le boutton create form
+          Refaire le header avec un boutton hambeurger pour le menu quand c'est
+          trop petit
         </li>
       </ul>
     </div>

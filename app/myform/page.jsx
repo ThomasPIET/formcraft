@@ -13,12 +13,14 @@ export default async function MyFormPage() {
   const form = await db.form.findMany();
   const question = await db.question.findMany();
 
-  const data = form.map((form) => {
-    return {
-      ...form,
-      questions: question.filter((question) => question.formId === form.id),
-    };
-  });
+  const data = form
+    .map((form) => {
+      return {
+        ...form,
+        questions: question.filter((question) => question.formId === form.id),
+      };
+    })
+    .sort((a, b) => new Date(b.CreatedAt) - new Date(a.CreatedAt));
 
   return (
     <div>
@@ -27,7 +29,7 @@ export default async function MyFormPage() {
       {data.length === 0 && <p>Vous n'avez pas encore de formulaire</p>}
 
       {data.length > 0 && (
-        <div className="grid grid-cols-4">
+        <div className="grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2">
           {data.map((form) => (
             <Card size="2xl" className="w-auto h-auto m-6 ">
               <CardHeader>
@@ -39,7 +41,7 @@ export default async function MyFormPage() {
                 </CardDescription>
               </CardHeader>
               <CardContent>
-                <p>Nombre de questions </p>
+                <p>{form.questions.length} </p>
               </CardContent>
               <CardFooter>
                 <p>Nombred de personnes qui ont réondu au questionnaire</p>

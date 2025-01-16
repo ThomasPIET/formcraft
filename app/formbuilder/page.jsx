@@ -13,6 +13,7 @@ import {
 } from "@/components/ui/select";
 import saveForm from "@/lib/saveForm";
 import { useToast } from "@/hooks/use-toast";
+import { redirect } from "next/navigation";
 
 export default function FormBuilderPage() {
   const [questions, setQuestions] = useState([]);
@@ -112,6 +113,7 @@ export default function FormBuilderPage() {
       });
       console.error("Erreur lors de la création du formulaire :", error);
     }
+    redirect("/myform");
   };
 
   return (
@@ -130,6 +132,7 @@ export default function FormBuilderPage() {
           <Input
             className="mb-8 max-w-lg"
             value={formTitle}
+            autoFocus
             type="text"
             placeholder="Donnez un titre à votre formulaire"
             onChange={(e) => setFormTitle(e.target.value)}
@@ -148,6 +151,7 @@ export default function FormBuilderPage() {
                 <Input
                   className="h-16"
                   type="text"
+                  autoFocus
                   placeholder={`Question ${index + 1}`}
                   value={question.label}
                   onChange={(e) => {
