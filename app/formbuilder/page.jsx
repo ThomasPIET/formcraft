@@ -108,7 +108,7 @@ export default function FormBuilderPage() {
     } catch (error) {
       toast({
         description:
-          "Une erreur est survenue lors de la création du formulaire.",
+          " ⚠️ Une erreur est survenue lors de la création du formulaire.",
       });
       console.error("Erreur lors de la création du formulaire :", error);
     }

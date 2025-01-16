@@ -23,22 +23,31 @@ export default async function MyFormPage() {
   return (
     <div>
       <Header />
-      <div className="grid grid-cols-4">
-        {data.map((form) => (
-          <Card size="2xl" className="w-auto h-auto m-6 ">
-            <CardHeader>
-              <CardTitle>{form.name}</CardTitle>
-              <CardDescription>Date de création</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <p>Nombre de questions </p>
-            </CardContent>
-            <CardFooter>
-              <p>Nombred de personnes qui ont réondu au questionnaire</p>
-            </CardFooter>
-          </Card>
-        ))}
-      </div>
+
+      {data.length === 0 && <p>Vous n'avez pas encore de formulaire</p>}
+
+      {data.length > 0 && (
+        <div className="grid grid-cols-4">
+          {data.map((form) => (
+            <Card size="2xl" className="w-auto h-auto m-6 ">
+              <CardHeader>
+                <CardTitle>{form.name}</CardTitle>
+                <CardDescription>
+                  {form.CreatedAt
+                    ? new Date(form.CreatedAt).toLocaleDateString("fr-FR")
+                    : "Date inconnue"}
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <p>Nombre de questions </p>
+              </CardContent>
+              <CardFooter>
+                <p>Nombred de personnes qui ont réondu au questionnaire</p>
+              </CardFooter>
+            </Card>
+          ))}
+        </div>
+      )}
     </div>
   );
 }
