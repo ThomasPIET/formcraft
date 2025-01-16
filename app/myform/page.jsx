@@ -8,6 +8,8 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import Header from "@/components/header";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 export default async function MyFormPage() {
   const form = await db.form.findMany();
@@ -26,7 +28,24 @@ export default async function MyFormPage() {
     <div>
       <Header />
 
-      {data.length === 0 && <p>Vous n'avez pas encore de formulaire</p>}
+      {data.length === 0 && (
+        <div className="min-h-[calc(100vh-4rem)] flex flex-col items-center justify-center bg-gray-50">
+          <div className="text-center">
+            <h1 className="text-4xl font-bold text-gray-800">
+              Aucun formulaire trouvé
+            </h1>
+            <p className="mt-4 text-lg text-gray-600">
+              Vous n'avez pas encore créé de formulaire. Créez votre premier
+              formulaire dès maintenant.
+            </p>
+            <div className="mt-6">
+              <Link href="/formbuilder">
+                <Button variant="link">Créer un formulaire</Button>
+              </Link>
+            </div>
+          </div>
+        </div>
+      )}
 
       {data.length > 0 && (
         <div className="grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2">
