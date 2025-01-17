@@ -120,7 +120,7 @@ export default function FormBuilderPage() {
     <div>
       <Header />
 
-      {questions.length < 1 && (
+      {questions.length === 0 && (
         <div className="flex flex-col items-center justify-center  min-h-screen overflow-hiddender  ">
           <h1 className="mb-8 text-4xl font-extrabold text-center leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl">
             Bienvenue sur la page de création de formulaire
@@ -146,6 +146,12 @@ export default function FormBuilderPage() {
       {questions.length > 0 && (
         <div className="flex min-h-[calc(100vh-48px)] mt-4  items-center justify-center">
           <div className="grid w-full max-w-2xl items-center gap-12">
+            <input
+              onChange={(e) => setFormTitle(e.target.value)}
+              className="w-full text-3xl font-bold border-b-2 border-gray-300 focus:border-yellow-300 focus:outline-none py-2 px-1 transition-colors duration-300"
+              placeholder={formTitle}
+            />
+
             {questions.map((question, index) => (
               <div key={question.id}>
                 <Input

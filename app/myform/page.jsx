@@ -60,10 +60,10 @@ export default async function MyFormPage() {
                 </CardDescription>
               </CardHeader>
               <CardContent>
-                <p>{form.questions.length} </p>
+                <p>Nombre de question : {form.questions.length} </p>
               </CardContent>
               <CardFooter>
-                <p>Nombred de personnes qui ont réondu au questionnaire</p>
+                <p>Nombre de personnes qui ont répondu au questionnaire</p>
               </CardFooter>
             </Card>
           ))}
