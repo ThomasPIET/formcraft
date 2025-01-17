@@ -148,14 +148,13 @@ export default function FormBuilderPage() {
           <div className="grid w-full max-w-2xl items-center gap-12">
             <input
               onChange={(e) => setFormTitle(e.target.value)}
-              className="w-full text-3xl font-bold border-b-2 border-gray-300 focus:border-yellow-300 focus:outline-none py-2 px-1 transition-colors duration-300"
+              className="w-full placeholder-black text-3xl font-bold border-b-2 border-gray-300 focus:border-yellow-300 focus:outline-none py-2 px-1 transition-colors duration-300"
               placeholder={formTitle}
             />
 
             {questions.map((question, index) => (
               <div key={question.id}>
                 <Input
-                  className="h-16"
                   type="text"
                   autoFocus
                   placeholder={`Question ${index + 1}`}
