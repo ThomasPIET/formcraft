@@ -16,6 +16,7 @@ export default function Page() {
           header avec un boutton hambeurger pour le menu quand c'est trop petit
         </li>
         <li>enlever bordure</li>
+        <li>faire kpi coté mongo</li>
       </ul>
     </div>
   );

@@ -14,6 +14,8 @@ import {
 import saveForm from "@/lib/saveForm";
 import { useToast } from "@/hooks/use-toast";
 import { redirect } from "next/navigation";
+import { Label } from "@/components/ui/label";
+import { Pencil, X } from "lucide-react";
 
 export default function FormBuilderPage() {
   const [questions, setQuestions] = useState([]);
@@ -23,6 +25,7 @@ export default function FormBuilderPage() {
   const addQuestion = () => {
     if (!formTitle.trim() || formTitle === "") {
       toast({
+        variant: "destructive",
         description: " ⚠️ Il faut donner un titre à votre formulaire",
       });
       return;
@@ -76,6 +79,8 @@ export default function FormBuilderPage() {
     );
     if (hasEmptyQuestion) {
       toast({
+        variant: "destructive",
+
         description:
           "⚠️ Veuillez compléter toutes les questions avant de sauvegarder le formulaire.",
       });
@@ -89,6 +94,8 @@ export default function FormBuilderPage() {
     );
     if (hasEmptyOption) {
       toast({
+        variant: "destructive",
+
         description:
           "⚠️ Veuillez compléter toutes les options pour les questions à choix multiple.",
       });
@@ -108,6 +115,7 @@ export default function FormBuilderPage() {
       toast({ description: " ✅ Formulaire créé avec succès !" });
     } catch (error) {
       toast({
+        variant: "destructive",
         description:
           " ⚠️ Une erreur est survenue lors de la création du formulaire.",
       });
@@ -130,7 +138,7 @@ export default function FormBuilderPage() {
             questions.
           </p>
           <Input
-            className="mb-8 max-w-lg"
+            className="mb-8 max-w-lg focus-visible:ring-0"
             value={formTitle}
             autoFocus
             type="text"
@@ -138,26 +146,38 @@ export default function FormBuilderPage() {
             onChange={(e) => setFormTitle(e.target.value)}
           />
 
+          <div className="-z-10 absolute bg-black rounded-full h-40 w-40 top-10 left-15" />
+          <div className="-z-10 absolute bg-yellow-600 rounded-full h-40 w-40 bottom-20 right-10" />
+          <div className="-z-10 absolute bg-blue-500 rounded-full h-40 w-40 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2" />
+          <div className="-z-10 absolute bg-red-800 rounded-full h-40 w-40 bottom-5 left-1/4" />
+
           <Button size="lg" onClick={addQuestion}>
             Commencer
           </Button>
         </div>
       )}
       {questions.length > 0 && (
-        <div className="flex min-h-[calc(100vh-48px)] mt-4  items-center justify-center">
-          <div className="grid w-full max-w-2xl items-center gap-12">
-            <input
-              onChange={(e) => setFormTitle(e.target.value)}
-              className="w-full placeholder-black text-3xl font-bold border-b-2 border-gray-300 focus:border-yellow-300 focus:outline-none py-2 px-1 transition-colors duration-300"
-              placeholder={formTitle}
-            />
+        <div className="flex min-h-[calc(100vh-48px)] mt-4  items-center justify-center   ">
+          <div className="grid w-auto gap-12 px-20">
+            <div className="flex">
+              <input
+                onChange={(e) => setFormTitle(e.target.value)}
+                className="w-min placeholder-black  text-3xl font-bold border-b-2 focus:border-gray-300  focus:outline-none py-2 px-1"
+                value={formTitle}
+                spellCheck="false"
+              />
+              <Pencil className="h-auto text-gray-500" />
+            </div>
 
             {questions.map((question, index) => (
               <div key={question.id}>
+                <Label className="text-lg">Question {index + 1}</Label>
+
                 <Input
+                  className="bg-gray-200 focus-visible:ring-0 my-2 text-black placeholder-black"
                   type="text"
                   autoFocus
-                  placeholder={`Question ${index + 1}`}
+                  placeholder={`Question`}
                   value={question.label}
                   onChange={(e) => {
                     updateQuestions(index, e.target.value);
@@ -194,10 +214,11 @@ export default function FormBuilderPage() {
                           }
                         />
                         <Button
-                          variant="destructive"
+                          variant="ghost"
+                          className="hover:bg-gray-200 "
                           onClick={() => removeOption(index, optionIndex)}
                         >
-                          Supprimer
+                          <X />
                         </Button>
                       </div>
                     ))}
@@ -216,17 +237,22 @@ export default function FormBuilderPage() {
                 )}
               </div>
             ))}
-            <div className="justify-between flex mb-[calc(20vh)] ">
-              {questions.length > 0 && (
-                <Button variant="outline" onClick={addQuestion}>
-                  Ajouter une question
-                </Button>
-              )}
 
-              {questions.length > 0 && (
-                <Button onClick={handleSaveForm}>Créer le sondage</Button>
-              )}
-            </div>
+            {questions.length > 0 && (
+              <Button
+                variant="outline"
+                className="font-semibold"
+                onClick={addQuestion}
+                size="lg"
+              >
+                Ajouter une question
+              </Button>
+            )}
+            {questions.length > 0 && (
+              <Button className="font-semibold" onClick={handleSaveForm}>
+                Créer le sondage
+              </Button>
+            )}
           </div>
         </div>
       )}
