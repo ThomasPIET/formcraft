@@ -7,7 +7,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import Header from "@/components/header";
+
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 
@@ -26,8 +26,6 @@ export default async function MyFormPage() {
 
   return (
     <div>
-      <Header />
-
       {data.length === 0 && (
         <div className="min-h-[calc(100vh-4rem)] flex flex-col items-center justify-center bg-gray-50">
           <div className="text-center">

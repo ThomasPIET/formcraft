@@ -1,6 +1,5 @@
 "use client";
 
-import Header from "@/components/header";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -15,7 +14,8 @@ import saveForm from "@/lib/saveForm";
 import { useToast } from "@/hooks/use-toast";
 import { redirect } from "next/navigation";
 import { Label } from "@/components/ui/label";
-import { Pencil, X } from "lucide-react";
+import { Pencil, X, MoveRight } from "lucide-react";
+import { Card } from "@/components/ui/card";
 
 export default function FormBuilderPage() {
   const [questions, setQuestions] = useState([]);
@@ -126,19 +126,17 @@ export default function FormBuilderPage() {
 
   return (
     <div>
-      <Header />
-
       {questions.length === 0 && (
-        <div className="flex flex-col items-center justify-center  min-h-screen overflow-hiddender  ">
+        <div className="flex flex-col items-center justify-center h-[calc(100vh-115px)] overflow-hidden  ">
           <h1 className="mb-8 text-4xl font-extrabold text-center leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl">
             Bienvenue sur la page de création de formulaire
           </h1>
-          <p className="mb-10 text-lg font-normal text-gray-500 lg:text-xl sm:px-16 xl:px-48 text-center">
+          <p className="mb-10 text font-normal text-gray-500 lg:text-xl sm:px-16 xl:px-48 text-center">
             Commencez par ajouter un titre à votre formulaire, puis ajoutez des
             questions.
           </p>
           <Input
-            className="mb-8 max-w-lg focus-visible:ring-0"
+            className="mb-8  max-w-lg focus-visible:ring-0"
             value={formTitle}
             autoFocus
             type="text"
@@ -146,19 +144,15 @@ export default function FormBuilderPage() {
             onChange={(e) => setFormTitle(e.target.value)}
           />
 
-          <div className="-z-10 absolute bg-black rounded-full h-40 w-40 top-10 left-15" />
-          <div className="-z-10 absolute bg-yellow-600 rounded-full h-40 w-40 bottom-20 right-10" />
-          <div className="-z-10 absolute bg-blue-500 rounded-full h-40 w-40 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2" />
-          <div className="-z-10 absolute bg-red-800 rounded-full h-40 w-40 bottom-5 left-1/4" />
-
           <Button size="lg" onClick={addQuestion}>
             Commencer
+            <MoveRight />
           </Button>
         </div>
       )}
       {questions.length > 0 && (
-        <div className="flex min-h-[calc(100vh-48px)] mt-4  items-center justify-center   ">
-          <div className="grid w-auto gap-12 px-20">
+        <div className="flex justify-center flex-col my-10">
+          <Card className="grid justify-center mx-auto gap-12 py-4 px-20">
             <div className="flex">
               <input
                 onChange={(e) => setFormTitle(e.target.value)}
@@ -249,11 +243,15 @@ export default function FormBuilderPage() {
               </Button>
             )}
             {questions.length > 0 && (
-              <Button className="font-semibold" onClick={handleSaveForm}>
+              <Button
+                size="lg"
+                className="font-semibold mb-6"
+                onClick={handleSaveForm}
+              >
                 Créer le sondage
               </Button>
             )}
-          </div>
+          </Card>
         </div>
       )}
     </div>
