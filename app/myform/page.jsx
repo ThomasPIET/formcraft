@@ -1,28 +1,26 @@
 import { db } from "@/lib/db";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
 
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import { DataTable } from "@/app/myform/data-table";
+import { columns } from "@/app/myform/columns";
 
 export default async function MyFormPage() {
   const form = await db.form.findMany();
   const question = await db.question.findMany();
 
-  const data = form
-    .map((form) => {
-      return {
-        ...form,
-        questions: question.filter((question) => question.formId === form.id),
-      };
-    })
-    .sort((a, b) => new Date(b.CreatedAt) - new Date(a.CreatedAt));
+  const data = form.map((f) => {
+    const q = question.filter((q) => q.formId === f.id);
+
+    const date = new Date(f.CreatedAt).toLocaleDateString("fr-FR");
+
+    return {
+      name: f.name,
+      CreatedAt: date,
+      questions: q.length,
+      reponses: "pending",
+    };
+  });
 
   return (
     <div>
@@ -38,7 +36,7 @@ export default async function MyFormPage() {
             </p>
             <div className="mt-6">
               <Link href="/formbuilder">
-                <Button variant="link">Créer un formulaire</Button>
+                <Button>Créer un formulaire</Button>
               </Link>
             </div>
           </div>
@@ -46,25 +44,8 @@ export default async function MyFormPage() {
       )}
 
       {data.length > 0 && (
-        <div className="grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2">
-          {data.map((form) => (
-            <Card size="2xl" className="w-auto h-auto m-6 ">
-              <CardHeader>
-                <CardTitle>{form.name}</CardTitle>
-                <CardDescription>
-                  {form.CreatedAt
-                    ? new Date(form.CreatedAt).toLocaleDateString("fr-FR")
-                    : "Date inconnue"}
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <p>Nombre de question : {form.questions.length} </p>
-              </CardContent>
-              <CardFooter>
-                <p>Nombre de personnes qui ont répondu au questionnaire</p>
-              </CardFooter>
-            </Card>
-          ))}
+        <div className="container mx-auto py-10">
+          <DataTable columns={columns} data={data} />
         </div>
       )}
     </div>
