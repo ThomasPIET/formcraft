@@ -41,7 +41,6 @@ export const columns = [
           variant="outline"
           onClick={() => {
             console.log("Voir :", formulaire);
-            // Vous pouvez appeler une fonction ou effectuer une navigation...
           }}
         >
           Voir
@@ -59,7 +58,6 @@ export const columns = [
           variant="outline"
           onClick={() => {
             console.log("Modifier :", formulaire);
-            // Vous pouvez appeler une fonction ou effectuer une navigation...
           }}
         >
           Modifier
@@ -77,7 +75,6 @@ export const columns = [
           variant="outline"
           onClick={() => {
             console.log("Supprimer :", formulaire);
-            // Vous pouvez appeler une fonction ou effectuer une navigation...
           }}
         >
           Supprimer
