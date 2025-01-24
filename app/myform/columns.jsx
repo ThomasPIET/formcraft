@@ -2,11 +2,15 @@
 
 import { Button } from "@/components/ui/button";
 import { ArrowUpDown } from "lucide-react";
-
+import { deleteForm } from "@/lib/form-services";
 export const columns = [
   {
     accessorKey: "name",
     header: "Nom du Formulaire",
+  },
+  {
+    accessorKey: "id",
+    header: "",
   },
   {
     accessorKey: "CreatedAt",
@@ -74,7 +78,7 @@ export const columns = [
         <Button
           variant="outline"
           onClick={() => {
-            console.log("Supprimer :", formulaire);
+            deleteForm(formulaire.id).then((r) => console.log(r));
           }}
         >
           Supprimer

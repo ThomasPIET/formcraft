@@ -19,6 +19,7 @@ export default async function MyFormPage() {
       CreatedAt: date,
       questions: q.length,
       reponses: "pending",
+      id: f.id,
     };
   });
 

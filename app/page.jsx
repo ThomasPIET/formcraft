@@ -16,6 +16,11 @@ export default function Page() {
         <li>faire kpi coté mongo</li>
         <li>ajouter barre de progression quand on répond au questionnaire</li>
         <li>Il faut pouvoir supprimer une question</li>
+        <li>enlever la colonne avec les if</li>
+        <li>
+          Mettre bouton en chargement quand il a cliquer pour créer son
+          questionnaire
+        </li>
       </ul>
     </div>
   );
