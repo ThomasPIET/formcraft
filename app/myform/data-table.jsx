@@ -1,9 +1,11 @@
 "use client";
 
-import React from "react";
+import * as React from "react";
 import {
   flexRender,
   getCoreRowModel,
+  getPaginationRowModel,
+  getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
 import {
@@ -14,16 +16,25 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { Button } from "@/components/ui/button";
 
 export function DataTable({ columns, data }) {
+  const [sorting, setSorting] = React.useState([]);
+
   const table = useReactTable({
     data,
     columns,
     getCoreRowModel: getCoreRowModel(),
+    getPaginationRowModel: getPaginationRowModel(),
+    onSortingChange: setSorting,
+    getSortedRowModel: getSortedRowModel(),
+    state: {
+      sorting,
+    },
   });
 
   return (
-    <div className="rounded-md border bg-white">
+    <div className="rounded-xl border mx-14 p-4 bg-white">
       <Table>
         <TableHeader>
           {table.getHeaderGroups().map((headerGroup) => (
@@ -64,6 +75,24 @@ export function DataTable({ columns, data }) {
           )}
         </TableBody>
       </Table>
+      <div className="flex items-center justify-end space-x-2 mr-4 pt-10">
+        <Button
+          variant="outline"
+          size="sm"
+          onClick={() => table.previousPage()}
+          disabled={!table.getCanPreviousPage()}
+        >
+          Previous
+        </Button>
+        <Button
+          variant="outline"
+          size="sm"
+          onClick={() => table.nextPage()}
+          disabled={!table.getCanNextPage()}
+        >
+          Next
+        </Button>
+      </div>
     </div>
   );
 }
