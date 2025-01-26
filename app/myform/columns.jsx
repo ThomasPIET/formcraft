@@ -1,8 +1,9 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { ArrowUpDown } from "lucide-react";
+import { ArrowUpDown, Pencil, Trash2 } from "lucide-react";
 import { deleteForm } from "@/lib/form-services";
+import { redirect } from "next/navigation";
 export const columns = [
   {
     accessorKey: "name",
@@ -11,6 +12,10 @@ export const columns = [
   {
     accessorKey: "id",
     header: "",
+    cell: ({ row }) => {
+      const id = row.original;
+      return null;
+    },
   },
   {
     accessorKey: "CreatedAt",
@@ -36,23 +41,6 @@ export const columns = [
     header: "Nombre de réponses",
   },
   {
-    id: "voir",
-    header: "Voir",
-    cell: ({ row }) => {
-      const formulaire = row.original;
-      return (
-        <Button
-          variant="outline"
-          onClick={() => {
-            console.log("Voir :", formulaire);
-          }}
-        >
-          Voir
-        </Button>
-      );
-    },
-  },
-  {
     id: "modifier",
     header: "Modifier",
     cell: ({ row }) => {
@@ -64,7 +52,7 @@ export const columns = [
             console.log("Modifier :", formulaire);
           }}
         >
-          Modifier
+          <Pencil />
         </Button>
       );
     },
@@ -72,16 +60,17 @@ export const columns = [
   {
     id: "supprimer",
     header: "Supprimer",
+
     cell: ({ row }) => {
       const formulaire = row.original;
       return (
         <Button
           variant="outline"
           onClick={() => {
-            deleteForm(formulaire.id).then((r) => console.log(r));
+            deleteForm(formulaire.id).then((r) => redirect("/myform"));
           }}
         >
-          Supprimer
+          <Trash2 />
         </Button>
       );
     },

@@ -56,6 +56,8 @@ export function DataTable({ columns, data }) {
           {table.getRowModel().rows?.length ? (
             table.getRowModel().rows.map((row) => (
               <TableRow
+                className="cursor-pointer hover:bg-gray-200"
+                onClick={() => console.log("voir")}
                 key={row.id}
                 data-state={row.getIsSelected() && "selected"}
               >
