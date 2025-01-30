@@ -10,7 +10,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { saveForm } from "@/lib/form-services";
+import { checkTitle, saveForm } from "@/lib/form-services";
 import { useToast } from "@/hooks/use-toast";
 import { redirect } from "next/navigation";
 import { Label } from "@/components/ui/label";
@@ -109,6 +109,14 @@ export default function FormBuilderPage() {
         (option) => option.trim() !== "",
       ),
     }));
+
+    if (await checkTitle(formTitle)) {
+      toast({
+        variant: "destructive",
+        description: " ⚠️ Le titre du formulaire est déjà utilisé.",
+      });
+      return;
+    }
 
     try {
       await saveForm(formTitle, sanitizedQuestions);
