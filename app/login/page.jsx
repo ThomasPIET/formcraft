@@ -1,4 +1,5 @@
 import { LoginForm } from "@/components/login-form";
+import { login } from "@/lib/user-services";
 
 export default function LoginPage() {
   return (
@@ -10,7 +11,7 @@ export default function LoginPage() {
       </header>
       <div className="flex flex-1 w-full items-center justify-center p-6 md:p-10">
         <div className="w-full max-w-sm">
-          <LoginForm />
+          <LoginForm loginAction={login} />
         </div>
       </div>
     </div>

@@ -1,3 +1,5 @@
+"use client";
+
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import {
@@ -9,16 +11,12 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { login } from "@/lib/user-services";
+import { redirect } from "next/navigation";
+import { useState } from "react";
 
-export function LoginForm({ className, ...props }) {
-  async function login(formData) {
-    "use server";
-
-    const email = formData.get("email");
-    const pwd = formData.get("password");
-
-    console.log(email, pwd);
-  }
+export function LoginForm({ loginAction, className, ...props }) {
+  const [errorMessage, setErrorMessage] = useState("");
 
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
@@ -30,7 +28,16 @@ export function LoginForm({ className, ...props }) {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <form action={login}>
+          <form
+            action={async (formData) => {
+              try {
+                await loginAction(formData);
+                setErrorMessage("");
+              } catch (error) {
+                setErrorMessage(error.message);
+              }
+            }}
+          >
             <div className="flex flex-col gap-6">
               <div className="grid gap-2">
                 <Label htmlFor="email">Email</Label>
@@ -59,6 +66,8 @@ export function LoginForm({ className, ...props }) {
               </a>
             </div>
           </form>
+
+          {errorMessage && <p className="text-red-500 mt-2">{errorMessage}</p>}
         </CardContent>
       </Card>
     </div>
