@@ -12,6 +12,7 @@ export default function Page() {
         <li>ajouter barre de progression quand on répond au questionnaire</li>
         <li>Il faut pouvoir supprimer une question</li>
         <li>enlever la colonne avec les if</li>
+        <li>changer ui boutton deconnexion Header</li>
       </ul>
     </div>
   );

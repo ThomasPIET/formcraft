@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import { logout } from "@/lib/user-services";
 
 export default function Header() {
   return (
@@ -14,10 +15,13 @@ export default function Header() {
             <Link href="/myform">Voir mes formulaires</Link>
           </Button>
 
-          <Button variant="" asChild>
+          <Button asChild>
             <Link href="/formbuilder" className="text-lg">
               Créer un formulaire
             </Link>
+          </Button>
+          <Button variant="ghost" onClick={() => logout()}>
+            Déconnexion
           </Button>
         </div>
       </div>
