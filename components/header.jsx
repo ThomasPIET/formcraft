@@ -1,6 +1,16 @@
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { logout } from "@/lib/user-services";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { redirect } from "next/navigation";
 
 export default function Header() {
   return (
@@ -11,18 +21,37 @@ export default function Header() {
         </a>
 
         <div className="flex gap-4">
-          <Button variant="ghost" asChild>
-            <Link href="/myform">Voir mes formulaires</Link>
-          </Button>
+          {/*<Button variant="ghost" asChild>*/}
+          {/*  <Link href="/myform">Voir mes formulaires</Link>*/}
+          {/*</Button>*/}
 
           <Button asChild>
             <Link href="/formbuilder" className="text-lg">
               Créer un formulaire
             </Link>
           </Button>
-          <Button variant="ghost" onClick={() => logout()}>
-            Déconnexion
-          </Button>
+
+          <DropdownMenu>
+            <DropdownMenuTrigger>
+              <Avatar>
+                <AvatarImage
+                  src="https://github.com/shadcn.png"
+                  alt="@shadcn"
+                />
+                <AvatarFallback>CN</AvatarFallback>
+              </Avatar>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent>
+              <DropdownMenuLabel>Mon compte</DropdownMenuLabel>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem onClick={() => redirect("/myform")}>
+                Mes formulaires
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={() => logout()}>
+                Se déconnecter
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
         </div>
       </div>
     </header>

@@ -4,9 +4,18 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { DataTable } from "@/app/myform/data-table";
 import { columns } from "@/app/myform/columns";
+import { cookies } from "next/headers";
+import { decrypt } from "@/lib/sessions";
 
 export default async function MyFormPage() {
-  const form = await db.form.findMany();
+  const cookie = (await cookies()).get("session")?.value;
+  const session = cookie ? await decrypt(cookie) : null;
+
+  const form = await db.form.findMany({
+    where: {
+      userId: session.userId,
+    },
+  });
   const question = await db.question.findMany();
 
   const data = form.map((f) => {

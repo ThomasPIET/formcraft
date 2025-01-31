@@ -129,6 +129,7 @@ export default function FormBuilderPage() {
       });
       console.error("Erreur lors de la création du formulaire :", error);
     }
+
     redirect("/myform");
   };
 
