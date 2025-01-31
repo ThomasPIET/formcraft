@@ -2,7 +2,6 @@ export default function Page() {
   return (
     <div>
       <ul>
-        <li>Faire l'auth</li>
         <li>Faire en sorte qu'il puisse modifier ses forms</li>
         <li>
           header avec un boutton hambeurger pour le menu quand c'est trop petit

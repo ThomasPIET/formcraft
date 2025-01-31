@@ -73,6 +73,12 @@ export default function FormBuilderPage() {
     setQuestions(updatedQuestions);
   };
 
+  const removeQuestion = (index) => {
+    const updatedQuestions = [...questions];
+    updatedQuestions.splice(index, 1);
+    setQuestions(updatedQuestions);
+  };
+
   const handleSaveForm = async () => {
     const hasEmptyQuestion = questions.some(
       (question) => !question.label.trim(),
@@ -176,16 +182,26 @@ export default function FormBuilderPage() {
               <div key={question.id}>
                 <Label className="text-lg">Question {index + 1}</Label>
 
-                <Input
-                  className="bg-gray-200 focus-visible:ring-0 my-2 text-black placeholder-black"
-                  type="text"
-                  autoFocus
-                  placeholder={`Question`}
-                  value={question.label}
-                  onChange={(e) => {
-                    updateQuestions(index, e.target.value);
-                  }}
-                />
+                <div className="flex items-center gap-2 mb-2">
+                  <Input
+                    className="bg-gray-200 focus-visible:ring-0 my-2 text-black placeholder-black"
+                    type="text"
+                    autoFocus
+                    placeholder={`Question`}
+                    value={question.label}
+                    onChange={(e) => {
+                      updateQuestions(index, e.target.value);
+                    }}
+                  />
+
+                  <Button
+                    variant="ghost"
+                    className="hover:bg-gray-200 "
+                    onClick={() => removeQuestion(index)}
+                  >
+                    <X />
+                  </Button>
+                </div>
 
                 <Select
                   onValueChange={(value) => updateQuestionType(index, value)}
