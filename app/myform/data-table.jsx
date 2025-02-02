@@ -17,6 +17,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
+import { redirect } from "next/navigation";
 
 export function DataTable({ columns, data }) {
   const [sorting, setSorting] = React.useState([]);
@@ -57,7 +58,8 @@ export function DataTable({ columns, data }) {
             table.getRowModel().rows.map((row) => (
               <TableRow
                 className="cursor-pointer hover:bg-gray-200"
-                onClick={() => console.log("voir")}
+                //[Log] row.original =  {name: "NoSQL", CreatedAt: "02/02/2025", questions: 3, reponses: "pending", id: "679f4d42a6a6a4b5e70f83b1"}
+                onClick={() => redirect(`/edit/${row.original.id}`)}
                 key={row.id}
                 data-state={row.getIsSelected() && "selected"}
               >

@@ -2,8 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { ArrowUpDown, Pencil, Trash2 } from "lucide-react";
-import { deleteForm } from "@/lib/form-services";
-import { redirect } from "next/navigation";
+import { FormDeleteDialog } from "@/components/formDeleteDialog";
 export const columns = [
   {
     accessorKey: "name",
@@ -40,6 +39,7 @@ export const columns = [
     accessorKey: "reponses",
     header: "Nombre de réponses",
   },
+
   {
     id: "modifier",
     header: "Modifier",
@@ -48,7 +48,8 @@ export const columns = [
       return (
         <Button
           variant="outline"
-          onClick={() => {
+          onClick={(event) => {
+            event.stopPropagation();
             console.log("Modifier :", formulaire);
           }}
         >
@@ -60,18 +61,16 @@ export const columns = [
   {
     id: "supprimer",
     header: "Supprimer",
-
     cell: ({ row }) => {
       const formulaire = row.original;
       return (
-        <Button
-          variant="outline"
-          onClick={() => {
-            deleteForm(formulaire.id).then((r) => redirect("/myform"));
-          }}
-        >
-          <Trash2 />
-        </Button>
+        <div onClick={(e) => e.stopPropagation()}>
+          <FormDeleteDialog id={formulaire.id}>
+            <Button variant="outline">
+              <Trash2 />
+            </Button>
+          </FormDeleteDialog>
+        </div>
       );
     },
   },
