@@ -1,6 +1,6 @@
 import { Inter } from "next/font/google";
 import "./globals.css";
-import Layout from "@/components/Layout";
+import Layout from "@/components/layout";
 
 export const metadata = {
   title: "Formcraft",
