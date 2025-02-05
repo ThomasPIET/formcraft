@@ -7,7 +7,10 @@ const publicRoutes = ["/login", "/signup"];
 
 export default async function middleware(req) {
   const path = req.nextUrl.pathname;
-  const isProtectedRoute = protectedRoutes.includes(path);
+  const isProtectedRoute =
+    protectedRoutes.includes(path) ||
+    path.startsWith("/myform/edit") ||
+    path.startsWith("/myform/");
   const isPublicRoute = publicRoutes.includes(path);
 
   const cookie = (await cookies()).get("session")?.value;

@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { ArrowUpDown, Pencil, Trash2 } from "lucide-react";
 import { FormDeleteDialog } from "@/components/formDeleteDialog";
 import { redirect } from "next/navigation";
+import { FormShareDialog } from "@/components/formShareDialog";
 export const columns = [
   {
     accessorKey: "name",
@@ -39,6 +40,19 @@ export const columns = [
   {
     accessorKey: "reponses",
     header: "Nombre de réponses",
+  },
+
+  {
+    accessorKey: "share",
+    header: "Partager",
+    cell: ({ row }) => {
+      const formulaire = row.original;
+      return (
+        <div onClick={(e) => e.stopPropagation()}>
+          <FormShareDialog id={formulaire.id} />
+        </div>
+      );
+    },
   },
 
   {

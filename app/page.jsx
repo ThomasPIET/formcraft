@@ -7,6 +7,7 @@ export default function Page() {
           header avec un boutton hamburger pour le menu quand c'est trop petit
         </li>
         <li>faire kpi coté mongo</li>
+        <li>afficher menudropdown uniquement si le user est connecté</li>
         <li>ajouter barre de progression quand on répond au questionnaire</li>
       </ul>
     </div>
