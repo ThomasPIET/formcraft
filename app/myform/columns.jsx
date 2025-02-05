@@ -3,6 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { ArrowUpDown, Pencil, Trash2 } from "lucide-react";
 import { FormDeleteDialog } from "@/components/formDeleteDialog";
+import { redirect } from "next/navigation";
 export const columns = [
   {
     accessorKey: "name",
@@ -50,6 +51,7 @@ export const columns = [
           variant="outline"
           onClick={(event) => {
             event.stopPropagation();
+            redirect(`myform/edit/${formulaire.id}`, "push");
             console.log("Modifier :", formulaire);
           }}
         >

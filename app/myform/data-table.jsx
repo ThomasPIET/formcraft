@@ -59,7 +59,7 @@ export function DataTable({ columns, data }) {
               <TableRow
                 className="cursor-pointer hover:bg-gray-200"
                 //[Log] row.original =  {name: "NoSQL", CreatedAt: "02/02/2025", questions: 3, reponses: "pending", id: "679f4d42a6a6a4b5e70f83b1"}
-                onClick={() => redirect(`/edit/${row.original.id}`)}
+                onClick={() => redirect(`/myform/${row.original.id}`, "push")}
                 key={row.id}
                 data-state={row.getIsSelected() && "selected"}
               >

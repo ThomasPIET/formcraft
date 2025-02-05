@@ -21,10 +21,6 @@ export default function Header() {
         </a>
 
         <div className="flex gap-4">
-          {/*<Button variant="ghost" asChild>*/}
-          {/*  <Link href="/myform">Voir mes formulaires</Link>*/}
-          {/*</Button>*/}
-
           <Button asChild>
             <Link href="/formbuilder" className="text-lg">
               Créer un formulaire
@@ -41,10 +37,10 @@ export default function Header() {
                 <AvatarFallback>CN</AvatarFallback>
               </Avatar>
             </DropdownMenuTrigger>
-            <DropdownMenuContent>
+            <DropdownMenuContent className="mr-2">
               <DropdownMenuLabel>Mon compte</DropdownMenuLabel>
               <DropdownMenuSeparator />
-              <DropdownMenuItem onClick={() => redirect("/myform")}>
+              <DropdownMenuItem onClick={() => redirect("/myform", "push")}>
                 Mes formulaires
               </DropdownMenuItem>
               <DropdownMenuItem onClick={() => logout()}>

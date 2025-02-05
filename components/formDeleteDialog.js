@@ -31,17 +31,19 @@ export function FormDeleteDialog({ id, children }) {
                 Annuler
               </Button>
             </DialogClose>
-            <Button
-              variant="destructive"
-              onClick={(e) => {
-                e.stopPropagation();
-                deleteForm(formulaireid).then(() => {
-                  redirect("/myform");
-                });
-              }}
-            >
-              Supprimer
-            </Button>
+            <DialogClose asChild>
+              <Button
+                variant="destructive"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  deleteForm(formulaireid).then(() => {
+                    redirect("/myform");
+                  });
+                }}
+              >
+                Supprimer
+              </Button>
+            </DialogClose>
           </div>
         </div>
       </DialogContent>
