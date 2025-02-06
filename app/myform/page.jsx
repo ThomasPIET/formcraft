@@ -15,6 +15,7 @@ export default async function MyFormPage() {
     },
   });
   const question = await db.question.findMany();
+  const response = await db.response.findMany();
 
   const data = form.map((f) => {
     const q = question.filter((q) => q.formId === f.id);
@@ -25,7 +26,7 @@ export default async function MyFormPage() {
       name: f.name,
       CreatedAt: date,
       questions: q.length,
-      reponses: "pending",
+      reponses: response.filter((r) => r.formId === f.id).length,
       id: f.id,
     };
   });
