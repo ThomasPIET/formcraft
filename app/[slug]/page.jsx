@@ -53,10 +53,10 @@ export default function AnswerPage({ params }) {
     <div className="container mx-auto p-4">
       <Card>
         <CardHeader>
-          <CardTitle>{form.name}</CardTitle>
+          <CardTitle className="text-3xl">{form.name}</CardTitle>
         </CardHeader>
         <CardContent>
-          <Progress value={progress} />
+          <Progress className="mb-4" value={progress} />
           <form
             id="answer-form"
             action={(formData) => getAnswer(formData, slug)}

@@ -12,7 +12,8 @@ export default function Page() {
           de réponse des forms
         </li>
         <li>
-          faire une petite animation quand j'ai répondu a un questionnaire
+          faire un bouton animation
+          {/*https://magicui.design/docs/components/interactive-hover-button*/}
         </li>
         <li>
           Est ce que je laisse sur la page de remmerciement ou alors je mets sur
