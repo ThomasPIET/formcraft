@@ -1,6 +1,7 @@
 import { Inter } from "next/font/google";
 import "./globals.css";
 import Layout from "@/components/layout";
+import { Analytics } from "@vercel/analytics/vue";
 
 export const metadata = {
   title: "Formcraft",
@@ -17,6 +18,7 @@ export default function RootLayout({ children }) {
     <html lang="en" className={inter.className}>
       <body>
         <Layout>{children}</Layout>
+        <Analytics />
       </body>
     </html>
   );
