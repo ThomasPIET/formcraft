@@ -60,7 +60,7 @@ export function FormShareDialog({ id }) {
             <Input
               id="link"
               ref={inputRef}
-              defaultValue={`localhost:3000/${id}`}
+              defaultValue={`https://formcraft-zeta.vercel.app/${id}`}
               readOnly
             />
           </div>

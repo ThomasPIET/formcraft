@@ -1,36 +1,102 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-## Getting Started
 
-First, run the development server:
+# Création d'une application pour un Système de Sondage avec MongoDB
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## Objectif
+
+L'objectif de cet exercice est de développer une application pour un système de sondage. L'application permettra la création de sondages, la gestion des questions, et la collecte des réponses. MongoDB servira de système de stockage pour les sondages et les réponses.
+
+## Exigences Fonctionnelles
+
+1. **Création de Sondage :**
+    - L'application doit permettre la création d'un sondage. ✅
+    - Chaque sondage doit avoir un nom unique. ✅
+    - Un sondage doit contenir une liste de questions. ✅
+    - Chaque question aura un intitulé, un type (ouverte, choix multiple, etc.), et potentiellement des réponses prédéfinies si c'est un QCM. ✅
+
+2. **Modification de Sondage :**
+    - Le créateur doit pouvoir modifier le sondage, y compris les questions et les réponses prédéfinies. ✅
+
+3. **Suppression de Sondage :**
+    - Le créateur peut supprimer un sondage. ✅
+
+4. **Mise à jour de Sondage :**
+    - L'application doit permettre la mise à jour des informations du sondage et des questions. ✅
+
+5. **Répondre aux Sondages :**
+    - Les utilisateurs peuvent répondre aux questions des sondages.
+    - Les réponses seront stockées dans une collection MongoDB avec une référence unique au sondage.
+
+6. **Consultation des Sondages :**
+    - Tous les utilisateurs peuvent consulter la liste des sondages publiés.
+
+## Exemple de Structure de Données
+
+### Collection `sondages`
+
+```json
+{
+  "_id": ObjectId("5f3a3c1c1234567890123456"),
+  "nom": "Sondage Préférences Alimentaires",
+  "createur": ObjectId("5f3a3c1b1234567890123456"),
+  "questions": [
+    {
+      "_id": ObjectId("5f3a3c1d1234567890123456"),
+      "intitule": "Quel est votre plat préféré ?",
+      "type": "ouverte"
+    },
+    {
+      "_id": ObjectId("5f3a3c1e1234567890123456"),
+      "intitule": "Quels types de cuisine préférez-vous ?",
+      "type": "qcm",
+      "reponses": ["Italienne", "Chinoise", "Mexicaine", "Indienne"]
+    }
+  ]
+}
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Collection `reponses`
 
-You can start editing the page by modifying `app/page.jsx`. The page auto-updates as you edit the file.
+```json
+{
+  "sondage_id": ObjectId("5f3a3c1c1234567890123456"),
+  "utilisateur_id": ObjectId("5f3a3c1d1234567890123456"),
+  "reponses": [
+    {
+      "question_id": ObjectId("5f3a3c1d1234567890123456"),
+      "reponse": "Pizza"
+    },
+    {
+      "question_id": ObjectId("5f3a3e1f1234567890123456"),
+      "reponse": ["Italienne", "Indienne"]
+    }
+  ]
+}
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Consignes pour l'Exercice
 
-## Learn More
+### Modélisation des Données :
 
-To learn more about Next.js, take a look at the following resources:
+- Définissez la structure des documents pour les collections sondages et reponses.
+- Assurez-vous que les sondages peuvent être facilement mis à jour et que les réponses peuvent être associées de manière unique à la fois au sondage et à l'utilisateur.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Développement de l'Application:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- Le framework est libre, vous utiliserez le langage de programmation de votre choix ainsi que le framework qui vous convient le plus
+- Une documentation vous est demandée sur le projet.
 
-## Deploy on Vercel
+### Stockage et Récupération des Données :
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- Utilisez MongoDB pour stocker les sondages et les réponses. ✅
+  Assurez-vous de gérer correctement les identifiants uniques et les références entre les collections.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### Sécurité et Permissions :
+
+- Mettez en place une authentification pour identifier les créateurs de sondages et les utilisateurs répondant aux sondages. ✅
+- Assurez-vous que seuls les créateurs puissent modifier ou supprimer leurs sondages.
+
+## Livrable
+
+- le github du projet.
+- Un script pour initialiser la base de données avec des données de test.
