@@ -131,14 +131,14 @@ export default function FormBuilderPage({ params }) {
     try {
       console.log("update", slug, formTitle, sanitizedQuestions);
       await updateForm(slug, formTitle, sanitizedQuestions);
-      toast({ description: "✅ Formulaire créé avec succès !" });
+      toast({ description: "✅ Formulaire modifié avec succès !" });
     } catch (error) {
       toast({
         variant: "destructive",
         description:
-          "⚠️ Une erreur est survenue lors de la création du formulaire.",
+          "⚠️ Une erreur est survenue lors de la modification du formulaire.",
       });
-      console.error("Erreur lors de la création du formulaire :", error);
+      console.error("Erreur lors de la modification du formulaire :", error);
     }
 
     redirect("/myform", "push");

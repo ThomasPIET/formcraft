@@ -19,6 +19,8 @@ export default function Page() {
           Est ce que je laisse sur la page de remmerciement ou alors je mets sur
           la page d'acceuil ?
         </li>
+        <li>Confirmation du mot de passe, RGPD, redirection apres register</li>
+        <li>Responsive mobile</li>
       </ul>
     </div>
   );

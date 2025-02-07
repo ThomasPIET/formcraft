@@ -79,24 +79,29 @@ export function DataTable({ columns, data }) {
           )}
         </TableBody>
       </Table>
-      <div className="flex items-center justify-end space-x-2 mr-4 pt-10">
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={() => table.previousPage()}
-          disabled={!table.getCanPreviousPage()}
-        >
-          Previous
-        </Button>
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={() => table.nextPage()}
-          disabled={!table.getCanNextPage()}
-        >
-          Next
-        </Button>
-      </div>
+
+      {data.length > 10 && (
+        <div>
+          <div className="flex items-center justify-end space-x-2 mr-4 pt-10">
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => table.previousPage()}
+              disabled={!table.getCanPreviousPage()}
+            >
+              Previous
+            </Button>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => table.nextPage()}
+              disabled={!table.getCanNextPage()}
+            >
+              Next
+            </Button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
