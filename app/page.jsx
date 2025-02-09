@@ -2,7 +2,6 @@ export default function Page() {
   return (
     <div>
       <ul>
-        <li>Faire en sorte qu'il puisse modifier ses forms</li>
         <li>
           header avec un boutton hamburger pour le menu quand c'est trop petit
         </li>
@@ -19,10 +18,7 @@ export default function Page() {
           Est ce que je laisse sur la page de remmerciement ou alors je mets sur
           la page d'acceuil ?
         </li>
-        <li>Confirmation du mot de passe, RGPD, redirection apres register</li>
         <li>Responsive mobile</li>
-        <li>Mettre un I de information pour le mot de passe</li>
-        <li>mettre la page de connexion en français</li>
       </ul>
     </div>
   );

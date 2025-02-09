@@ -20,6 +20,7 @@ export function LoginForm({ loginAction, className, ...props }) {
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState("");
   const [emailError, setEmailError] = useState("");
+  const [password, setPassword] = useState("");
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
@@ -32,7 +33,7 @@ export function LoginForm({ loginAction, className, ...props }) {
         <CardHeader>
           <CardTitle className="text-2xl">Connexion</CardTitle>
           <CardDescription>
-            Entrez votre mail et votre mot de passe pour vous connectez
+            Entrez votre mail et votre mot de passe pour vous connecter
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -59,6 +60,7 @@ export function LoginForm({ loginAction, className, ...props }) {
                   required
                   value={email}
                   onChange={handleEmailChange}
+                  disabled={isLoading}
                 />
                 {emailError && (
                   <p className="text-red-500 text-xs">{emailError}</p>
@@ -74,25 +76,32 @@ export function LoginForm({ loginAction, className, ...props }) {
                     name="password"
                     type={showPassword ? "text" : "password"}
                     required
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
                   />
 
                   <button
                     type="button"
                     className="absolute inset-y-0 right-3 flex items-center text-gray-500"
                     onClick={() => setShowPassword(!showPassword)}
+                    disabled={isLoading || emailError}
                   >
                     {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
                   </button>
-                </div>{" "}
+                </div>
               </div>
-              <Button type="submit" className="w-full" disabled={isLoading}>
+              <Button
+                type="submit"
+                className="w-full"
+                disabled={isLoading || !email || emailError || !password}
+              >
                 {isLoading ? "Connexion..." : "Connexion"}
               </Button>
             </div>
             <div className="mt-4 text-center text-sm">
               Vous n&apos;avez pas de compte?{" "}
               <a href="/register" className="underline underline-offset-4">
-                Créez le ici
+                Créez-le ici
               </a>
             </div>
           </form>
