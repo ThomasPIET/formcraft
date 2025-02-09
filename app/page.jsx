@@ -21,6 +21,8 @@ export default function Page() {
         </li>
         <li>Confirmation du mot de passe, RGPD, redirection apres register</li>
         <li>Responsive mobile</li>
+        <li>Mettre un I de information pour le mot de passe</li>
+        <li>mettre la page de connexion en français</li>
       </ul>
     </div>
   );

@@ -12,28 +12,40 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useState } from "react";
+import { Eye, EyeOff } from "lucide-react";
 
 export function LoginForm({ loginAction, className, ...props }) {
+  const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [email, setEmail] = useState("");
+  const [emailError, setEmailError] = useState("");
+
+  const handleEmailChange = (e) => {
+    setEmail(e.target.value);
+    setEmailError(e.target.value.includes("@") ? "" : "⚠️ Email invalide");
+  };
 
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
       <Card>
         <CardHeader>
-          <CardTitle className="text-2xl">Login</CardTitle>
+          <CardTitle className="text-2xl">Connexion</CardTitle>
           <CardDescription>
-            Enter your email below to login to your account
+            Entrez votre mail et votre mot de passe pour vous connectez
           </CardDescription>
         </CardHeader>
         <CardContent>
           <form
             action={async (formData) => {
               try {
+                setIsLoading(true);
                 await loginAction(formData);
                 setErrorMessage("");
               } catch (error) {
                 setErrorMessage(error.message);
               }
+              setIsLoading(false);
             }}
           >
             <div className="flex flex-col gap-6">
@@ -45,22 +57,42 @@ export function LoginForm({ loginAction, className, ...props }) {
                   name="email"
                   placeholder="m@example.com"
                   required
+                  value={email}
+                  onChange={handleEmailChange}
                 />
+                {emailError && (
+                  <p className="text-red-500 text-xs">{emailError}</p>
+                )}
               </div>
               <div className="grid gap-2">
                 <div className="flex items-center">
-                  <Label htmlFor="password">Password</Label>
+                  <Label htmlFor="password">Mot de passe</Label>
                 </div>
-                <Input id="password" name="password" type="password" required />
+                <div className="relative">
+                  <Input
+                    id="password"
+                    name="password"
+                    type={showPassword ? "text" : "password"}
+                    required
+                  />
+
+                  <button
+                    type="button"
+                    className="absolute inset-y-0 right-3 flex items-center text-gray-500"
+                    onClick={() => setShowPassword(!showPassword)}
+                  >
+                    {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+                  </button>
+                </div>{" "}
               </div>
-              <Button type="submit" className="w-full">
-                Login
+              <Button type="submit" className="w-full" disabled={isLoading}>
+                {isLoading ? "Connexion..." : "Connexion"}
               </Button>
             </div>
             <div className="mt-4 text-center text-sm">
-              Don&apos;t have an account?{" "}
+              Vous n&apos;avez pas de compte?{" "}
               <a href="/register" className="underline underline-offset-4">
-                Sign up
+                Créez le ici
               </a>
             </div>
           </form>
