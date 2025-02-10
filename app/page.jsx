@@ -5,8 +5,9 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import { Separator } from "@/components/ui/separator";
 import { MoveDown } from "lucide-react";
+import DisplayForm from "@/components/displayForm";
 
-export default function Page() {
+export default function HomePage() {
   return (
     <div>
       <div className="flex justify-center items-center flex-col my-10 md:my-20">
@@ -23,7 +24,7 @@ export default function Page() {
               transition={{ duration: 0.5 }}
               className="font-cdbold text-6xl md:text-8xl pt-10 mb-4"
             >
-              FormCraft
+              FORMCRAFT
             </motion.div>
             La solution pour vos formulaires
           </div>
@@ -36,13 +37,14 @@ export default function Page() {
               <Link href="/formbuilder">Créer un formulaire</Link>
             </Button>
           </div>
-          <Separator className="mb-20 mt-10 h-[1px] bg-gray-400" />
+          <Separator className="mb-20 mt-14 h-[1px] bg-gray-400" />
           <div className="flex justify-center items-center flex-col">
             <h2 className="text-3xl font-bold text-center mb-8 text-gray-900">
-              Mes Formulaires
+              Les derniers partagés
             </h2>
             <MoveDown className="w-10 h-10 animate-bounce text-gray-900" />
           </div>
+          <DisplayForm />
         </motion.div>
       </div>
     </div>
