@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { DataTable } from "@/app/myform/data-table";
 import { columns } from "@/app/myform/columns";
-import { getUserId } from "@/lib/sessions";
+import { getUserId } from "@/lib/sessions"; 
 
 export default async function MyFormPage() {
   const userId = await getUserId();

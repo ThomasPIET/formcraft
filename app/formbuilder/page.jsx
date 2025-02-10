@@ -142,7 +142,7 @@ export default function FormBuilderPage() {
   return (
     <div>
       {questions.length === 0 && (
-        <div className="flex flex-col items-center justify-center h-[calc(100vh-115px)] overflow-hidden  ">
+        <div className="flex flex-col items-center justify-center h-[calc(100vh-115px)] overflow-hidden">
           <h1 className="mb-8 text-4xl font-extrabold text-center leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl">
             Bienvenue sur la page de création de formulaire
           </h1>
