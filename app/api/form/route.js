@@ -1,4 +1,6 @@
 import { db } from "@/lib/db";
+import { NextResponse } from "next/server";
+
 export async function GET() {
   try {
     const form = await db.form.findMany({
@@ -22,8 +24,8 @@ export async function GET() {
         id: f.id,
       };
     });
-    return Response.json(data);
+    return NextResponse.json(data);
   } catch (error) {
-    return Response.json({ error: "Failed to fetch forms" }, { status: 500 });
+    return NextResponse.json({ error: "Failed to fetch forms" }, { status: 500 });
   }
 }
