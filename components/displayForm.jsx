@@ -8,12 +8,19 @@ export default function DisplayForm() {
 
   useEffect(() => {
     const fetchForms = async () => {
-      const response = await fetch("/api/form");
-      if (!response.ok) {
-        throw new Error("Failed to fetch forms");
+      try {
+        const response = await fetch("/api/form");
+        if (!response.ok) {
+          throw new Error("Failed to fetch forms");
+        }
+        const data = await response.json();
+        setForms(data);
+      } catch (error) {
+        console.error(
+          "Erreur lors de la récupération des formulaires :",
+          error
+        );
       }
-      const data = await response.json();
-      setForms(data);
     };
     fetchForms();
   }, []);
