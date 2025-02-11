@@ -12,12 +12,10 @@ export async function GET() {
         (question) => question.formId === form.id
       );
 
-      const date = new Date(form.createdAt).toLocaleDateString("fr-FR"); 
 
       return {
         id: form.id,
         name: form.name,
-        createdAt: date,
         questions: filteredQuestions.length,
         responses: responses.filter((r) => r.formId === form.id).length,
       };
