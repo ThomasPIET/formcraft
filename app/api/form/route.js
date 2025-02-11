@@ -3,24 +3,27 @@ import { NextResponse } from "next/server";
 
 export async function GET() {
   try {
-    const form = await db.form.findMany({
+    const forms = await db.form.findMany({
       orderBy: {
-        CreatedAt: 'desc'
-      }
+        CreatedAt: "desc",
+      },
     });
-    const question = await db.question.findMany();
-    const response = await db.response.findMany();
+    const questions = await db.question.findMany();
+    const responses = await db.response.findMany();
 
-    const data = form.map((f) => {
-      const q = question.filter((q) => q.formId === f.id);
-      const date = new Date(f.CreatedAt).toLocaleDateString("fr-FR");
+    const data = forms.map((form) => {
+      const filteredQuestions = questions.filter(
+        (question) => question.formId === form.id
+      );
+
+      const date = new Date(form.createdAt).toLocaleDateString("fr-FR"); 
 
       return {
-        name: f.name,
-        CreatedAt: date,
-        questions: q.length,
-        reponses: response.filter((r) => r.formId === f.id).length,
-        id: f.id,
+        id: form.id,
+        name: form.name,
+        createdAt: date,
+        questions: filteredQuestions.length,
+        responses: responses.filter((r) => r.formId === form.id).length,
       };
     });
 
