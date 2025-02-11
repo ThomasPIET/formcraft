@@ -3,11 +3,7 @@ import { NextResponse } from "next/server";
 
 export async function GET() {
   try {
-    const forms = await db.form.findMany({
-      orderBy: {
-        CreatedAt: "desc",
-      },
-    });
+    const forms = await db.form.findMany();
     const questions = await db.question.findMany();
     const responses = await db.response.findMany();
 

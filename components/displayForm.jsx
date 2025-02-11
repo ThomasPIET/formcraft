@@ -40,7 +40,6 @@ export default function DisplayForm() {
               <h3 className="text-xl font-semibold mb-2">{form.name}</h3>
               <div className="flex justify-between text-gray-600 text-sm">
                 <p>{form.questions} questions</p>
-                <p>Créé le {form.CreatedAt}</p>
               </div>
             </CardContent>
           </Card>
