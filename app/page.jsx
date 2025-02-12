@@ -17,12 +17,12 @@ export default function HomePage() {
           transition={{ duration: 0.8 }}
           className="w-full max-w-6xl px-4 py-12 md:py-24 mx-auto text-center"
         >
-          <div className="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl pb-4">
+          <div className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-gray-900 pb-4">
             <motion.div
               initial={{ scale: 0.8 }}
               animate={{ scale: 1 }}
               transition={{ duration: 0.5 }}
-              className="font-cdbold text-6xl md:text-8xl pt-10 mb-4"
+              className="font-cdbold text-4xl sm:text-5xl md:text-6xl lg:text-8xl pt-6 sm:pt-8 md:pt-10 mb-2 sm:mb-3 md:mb-4"
             >
               FORMCRAFT
             </motion.div>

@@ -5,7 +5,6 @@ import { Progress } from "@/components/ui/progress";
 export default async function MyFormSlugPage({ params }) {
   const { slug } = params;
 
-  // Vérifier si le formulaire existe
   const form = await db.form.findUnique({
     where: {
       id: slug,
@@ -41,15 +40,9 @@ export default async function MyFormSlugPage({ params }) {
   });
 
   return (
-    // On limite la largeur et on centre la page pour un rendu agréable sur grand écran,
-    // tout en laissant la page « responsive » sur mobile.
     <div className="mx-auto px-4 py-8 max-w-screen-md">
       <h1 className="text-4xl font-bold mb-6">{form.name}</h1>
 
-      {/* 
-         Au lieu d'utiliser une grille, on utilise un simple conteneur
-         en colonne, en laissant un espace vertical entre les questions 
-       */}
       <div className="space-y-4">
         {form.questions.map((question) => {
           const questionAnswers =
