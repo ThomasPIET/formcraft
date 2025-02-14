@@ -16,6 +16,7 @@ export default function AnswerPage({ params }) {
   const { slug } = resolvedParams;
   const [form, setForm] = useState(null);
   const [progress, setProgress] = useState(0);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
     async function fetchForm() {
@@ -47,6 +48,11 @@ export default function AnswerPage({ params }) {
     setProgress(newProgress);
   };
 
+  const handleSubmit = async (formData) => {
+    setIsSubmitting(true);
+    await getAnswer(formData, slug);
+  };
+
   if (!form) return <div>Chargement...</div>;
 
   return (
@@ -57,10 +63,7 @@ export default function AnswerPage({ params }) {
         </CardHeader>
         <CardContent>
           <Progress className="mb-4" value={progress} />
-          <form
-            id="answer-form"
-            action={(formData) => getAnswer(formData, slug)}
-          >
+          <form id="answer-form" action={handleSubmit}>
             {form.questions.map((question) => (
               <div key={question.id} className="mb-6">
                 <Label className="block mb-2 text-lg font-medium">
@@ -101,7 +104,9 @@ export default function AnswerPage({ params }) {
             ))}
 
             <div className="flex justify-end mt-4">
-              <Button type="submit">Valider</Button>
+              <Button type="submit" disabled={isSubmitting}>
+                {isSubmitting ? "Envoi en cours..." : "Valider"}
+              </Button>
             </div>
           </form>
         </CardContent>
