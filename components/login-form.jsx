@@ -38,15 +38,17 @@ export function LoginForm({ loginAction, className, ...props }) {
         </CardHeader>
         <CardContent>
           <form
-            action={async (formData) => {
+            onSubmit={async (e) => {
+              e.preventDefault();
+              setIsLoading(true);
+              const formData = new FormData(e.target);
               try {
-                setIsLoading(true);
                 await loginAction(formData);
                 setErrorMessage("");
               } catch (error) {
                 setErrorMessage(error.message);
+                setIsLoading(false);
               }
-              setIsLoading(false);
             }}
           >
             <div className="flex flex-col gap-6">
@@ -78,13 +80,14 @@ export function LoginForm({ loginAction, className, ...props }) {
                     required
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
+                    disabled={isLoading}
                   />
 
                   <button
                     type="button"
                     className="absolute inset-y-0 right-3 flex items-center text-gray-500"
                     onClick={() => setShowPassword(!showPassword)}
-                    disabled={isLoading || emailError}
+                    disabled={isLoading}
                   >
                     {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
                   </button>
@@ -95,7 +98,7 @@ export function LoginForm({ loginAction, className, ...props }) {
                 className="w-full"
                 disabled={isLoading || !email || emailError || !password}
               >
-                {isLoading ? "Connexion..." : "Connexion"}
+                {isLoading ? "Connexion en cours..." : "Connexion"}
               </Button>
             </div>
             <div className="mt-4 text-center text-sm">

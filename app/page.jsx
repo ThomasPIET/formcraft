@@ -39,10 +39,10 @@ export default function HomePage() {
           </div>
           <Separator className="mb-20 mt-14 h-[1px] bg-gray-400" />
           <div className="flex justify-center items-center flex-col">
-            <h2 className="text-3xl font-bold text-center mb-8 text-gray-900">
+            <h2 className="text-3xl font-bold text-center mb-6   text-gray-900">
               Les derniers partagés
             </h2>
-            <MoveDown className="w-10 h-10 animate-bounce text-gray-900" />
+            <MoveDown className="w-10 h-10 pb-4  animate-bounce text-gray-900" />
           </div>
           <DisplayForm />
         </motion.div>

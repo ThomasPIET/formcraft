@@ -27,7 +27,6 @@ export default async function MyFormSlugPage({ params }) {
     );
   }
 
-  // Construire la map des réponses
   const answersMap = new Map();
   form.Response.forEach((response) => {
     const answers = response.answers;

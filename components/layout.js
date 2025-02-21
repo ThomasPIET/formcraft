@@ -19,10 +19,12 @@ export default function Layout({ children }) {
         setIsLoggedIn(!!data.userId);
       } catch (e) {
         console.error(e);
+        setIsLoggedIn(false);
       }
     };
+    
     checkAuth();
-  }, []);
+  }, [pathname]); 
 
   if (noLayoutPages.includes(pathname)) {
     return <>{children}</>;
@@ -32,9 +34,7 @@ export default function Layout({ children }) {
     <>
       <Header isLoggedIn={isLoggedIn} />
       <Toaster />
-      <main>
-        {children}
-        </main>
+      <main>{children}</main>
     </>
   );
 }

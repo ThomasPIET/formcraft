@@ -6,6 +6,7 @@ import { redirect } from "next/navigation";
 
 export default function DisplayForm() {
   const [forms, setForms] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchForms = async () => {
@@ -21,10 +22,16 @@ export default function DisplayForm() {
           "Erreur lors de la récupération des formulaires :",
           error
         );
+      } finally {
+        setIsLoading(false);
       }
     };
     fetchForms();
   }, []);
+
+  if (isLoading) {
+    return <div className="text-center text-gray-600">Chargement...</div>;
+  }
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 px-4">

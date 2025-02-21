@@ -48,9 +48,18 @@ export default function AnswerPage({ params }) {
     setProgress(newProgress);
   };
 
-  const handleSubmit = async (formData) => {
+  const handleFormSubmit = async (e) => {
+    e.preventDefault();
     setIsSubmitting(true);
-    await getAnswer(formData, slug);
+
+    const formData = new FormData(e.target);
+    try {
+      await getAnswer(formData, slug);
+    } catch (error) {
+      console.error("Erreur lors de l'envoi du formulaire:", error);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   if (!form) return <div>Chargement...</div>;
@@ -63,7 +72,7 @@ export default function AnswerPage({ params }) {
         </CardHeader>
         <CardContent>
           <Progress className="mb-4" value={progress} />
-          <form id="answer-form" action={handleSubmit}>
+          <form id="answer-form" onSubmit={handleFormSubmit}>
             {form.questions.map((question) => (
               <div key={question.id} className="mb-6">
                 <Label className="block mb-2 text-lg font-medium">
@@ -99,7 +108,7 @@ export default function AnswerPage({ params }) {
                       </div>
                     ))}
                   </RadioGroup>
-                )} 
+                )}
               </div>
             ))}
 

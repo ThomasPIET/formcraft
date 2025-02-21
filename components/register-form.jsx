@@ -28,6 +28,7 @@ export function RegisterForm({ registerAction, className, ...props }) {
   const [passwordError, setPasswordError] = useState("");
   const [passwordStrength, setPasswordStrength] = useState("");
   const [isTyping, setIsTyping] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const handlePasswordChange = (e) => {
     const value = e.target.value;
@@ -58,9 +59,10 @@ export function RegisterForm({ registerAction, className, ...props }) {
     if (/[A-Z]/.test(password)) strength++;
     if (/[a-z]/.test(password)) strength++;
     if (/[0-9]/.test(password)) strength++;
+    if (/[!@#$%^&*(),.?":{}|<>]/.test(password)) strength++;
 
-    if (strength === 4) return "Forte";
-    if (strength === 3) return "Moyenne";
+    if (strength === 5) return "Forte";
+    if (strength === 3 || strength === 4) return "Moyenne";
     return "Faible";
   };
 
@@ -75,12 +77,16 @@ export function RegisterForm({ registerAction, className, ...props }) {
         </CardHeader>
         <CardContent>
           <form
-            action={async (formData) => {
+            onSubmit={async (e) => {
+              e.preventDefault();
+              setIsLoading(true);
+              const formData = new FormData(e.target);
               try {
                 await registerAction(formData);
                 setErrorMessage("");
               } catch (error) {
                 setErrorMessage(error.message);
+                setIsLoading(false);
               }
             }}
           >
@@ -166,10 +172,13 @@ export function RegisterForm({ registerAction, className, ...props }) {
                 type="submit"
                 className="w-full"
                 disabled={
-                  !password || !confirmPassword || password !== confirmPassword
+                  !password ||
+                  !confirmPassword ||
+                  password !== confirmPassword ||
+                  isLoading
                 }
               >
-                Créer mon compte
+                {isLoading ? "Création du compte" : "Créer mon compte"}
               </Button>
             </div>
             <div className="mt-4 text-center text-sm">

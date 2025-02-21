@@ -20,6 +20,7 @@ import { Card } from "@/components/ui/card";
 export default function FormBuilderPage() {
   const [questions, setQuestions] = useState([]);
   const [formTitle, setFormTitle] = useState("");
+  const [isSaving, setIsSaving] = useState(false);
   const { toast } = useToast();
 
   const addQuestion = () => {
@@ -80,8 +81,9 @@ export default function FormBuilderPage() {
   };
 
   const handleSaveForm = async () => {
+    setIsSaving(true);
     const hasEmptyQuestion = questions.some(
-      (question) => !question.label.trim(),
+      (question) => !question.label.trim()
     );
     if (hasEmptyQuestion) {
       toast({
@@ -90,13 +92,14 @@ export default function FormBuilderPage() {
         description:
           "⚠️ Veuillez compléter toutes les questions avant de sauvegarder le formulaire.",
       });
+      setIsSaving(false);
       return;
     }
 
     const hasEmptyOption = questions.some(
       (question) =>
         question.type === "MULTIPLE_CHOICE" &&
-        question.options.some((option) => !option.trim()),
+        question.options.some((option) => !option.trim())
     );
     if (hasEmptyOption) {
       toast({
@@ -105,6 +108,7 @@ export default function FormBuilderPage() {
         description:
           "⚠️ Veuillez compléter toutes les options pour les questions à choix multiple.",
       });
+      setIsSaving(false);
       return;
     }
 
@@ -112,7 +116,7 @@ export default function FormBuilderPage() {
       ...question,
       label: question.label.trim() || "",
       options: (question.options || []).filter(
-        (option) => option.trim() !== "",
+        (option) => option.trim() !== ""
       ),
     }));
 
@@ -121,6 +125,7 @@ export default function FormBuilderPage() {
         variant: "destructive",
         description: " ⚠️ Le titre du formulaire est déjà utilisé.",
       });
+      setIsSaving(false);
       return;
     }
 
@@ -134,6 +139,7 @@ export default function FormBuilderPage() {
           " ⚠️ Une erreur est survenue lors de la création du formulaire.",
       });
       console.error("Erreur lors de la création du formulaire :", error);
+      setIsSaving(false);
     }
 
     redirect("/myform", "push");
@@ -269,11 +275,12 @@ export default function FormBuilderPage() {
             )}
             {questions.length > 0 && (
               <Button
+                disabled={isSaving}
                 size="lg"
                 className="font-semibold mb-6"
                 onClick={handleSaveForm}
               >
-                Créer le sondage
+                {isSaving ? "Création en cours..." : "Créer le sondage"}
               </Button>
             )}
           </Card>
